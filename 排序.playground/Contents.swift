@@ -12,7 +12,7 @@ func needSortSequeue() -> [Int] {
 }
 
 var testList: [Int] = needSortSequeue()
-print("原始数据 : " , testList)
+print("原始数据 : \(testList)\n============================")
 
 /// 冒泡排序
 func bubbleSort(list: [Int]) -> [Int] {
@@ -39,7 +39,34 @@ func bubbleSort(list: [Int]) -> [Int] {
     return sortList
 }
 
-///测试
-bubbleSort(list: testList)
+/// 快速排序
+func firstSort(list: [Int]) -> [Int] {
+    let startTime = CFAbsoluteTimeGetCurrent()
+    
+    let sortList = firstSortSet(list: list)
+    
+    let endTime = CFAbsoluteTimeGetCurrent()
+    print("快速排序结束数据 : \(sortList)\n============================")
+    print("快速排序代码执行时长:", (endTime - startTime)*1000,"毫秒")
+    
+    return sortList
+}
 
+func firstSortSet(list: [Int]) -> [Int] {
+    
+    if(list.count <= 1) {
+        return list
+    }
+    
+    let base:Int = list[list.count / 2]
+    let less = list.filter{ return $0 < base }
+    let equl = list.filter{ return $0 == base }
+    let large = list.filter{ return $0 > base }
+    
+    return firstSortSet(list: less) + equl + firstSortSet(list: large)
+}
+
+///测试
+//bubbleSort(list: testList)
+//firstSort(list: testList)
 

@@ -66,7 +66,58 @@ func firstSortSet(list: [Int]) -> [Int] {
     return firstSortSet(list: less) + equl + firstSortSet(list: large)
 }
 
+/**
+ 
+ 归并排序 O(nlogn)
+ 
+ 将数组分割，最后合并
+ 
+ */
+func combineSort(_ list: [Int]) -> [Int] {
+    
+    guard list.count > 1 else {
+        return list
+    }
+
+    // 分割
+    let mid = list.count >> 1
+    let beginArray = combineSort(Array(list[0..<mid]))
+    let endArray = combineSort(Array(list[mid..<list.count]))
+    
+    // 合并
+    var combineArray:[Int] = []
+    
+    var beginIndex = 0
+    var endIndex = 0
+    
+    while (beginIndex < beginArray.count) && (endIndex < endArray.count) {
+    
+        if(beginArray[beginIndex] > endArray[endIndex]) {
+
+            combineArray.append(endArray[endIndex])
+            endIndex = endIndex + 1
+        }
+        else {
+ 
+            combineArray.append(beginArray[beginIndex])
+            beginIndex = beginIndex + 1
+        }
+    }
+    
+    // 处理剩下的数据
+    if (beginIndex < beginArray.count) {
+        combineArray = combineArray + beginArray[beginIndex..<beginArray.count]
+    }
+    else if (endIndex < endArray.count) {
+        combineArray = combineArray + endArray[endIndex..<endArray.count]
+    }
+    
+    return combineArray
+}
+
 ///测试
 //bubbleSort(list: testList)
 //firstSort(list: testList)
+//combineSort(testList)
+
 

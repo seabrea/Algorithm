@@ -115,14 +115,6 @@ func combineSort(_ list: [Int]) -> [Int] {
     return combineArray
 }
 
-/**
- 堆排序
- */
-
-func heapSort(_ list: [Int]) {
-    
-}
-
 ///测试
 //bubbleSort(list: testList)
 //firstSort(list: testList)
